@@ -1,0 +1,127 @@
+---
+import { studio, t, localePath, type Lang } from "../i18n/content";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const tr = t(lang);
+
+// Alternativen Sprachpfad zur aktuellen Seite berechnen
+const path = Astro.url.pathname;
+const isEn = path.startsWith("/en");
+const altLang: Lang = isEn ? "de" : "en";
+let altPath: string;
+if (isEn) {
+  altPath = path.replace(/^\/en/, "") || "/";
+} else {
+  altPath = "/en" + (path === "/" ? "/" : path);
+}
+
+const nav = [
+  { href: localePath(lang, "#services"), label: tr.nav.services },
+  { href: localePath(lang, "#about"), label: tr.nav.about },
+  { href: localePath(lang, "#gallery"), label: tr.nav.gallery },
+  { href: localePath(lang, "#reviews"), label: tr.nav.reviews },
+  { href: localePath(lang, "blog"), label: tr.nav.blog },
+];
+const bookingHref = localePath(lang, "#booking");
+---
+
+<header
+  id="site-header"
+  class="sticky top-0 z-50 border-b border-rose-100/70 bg-cream/80 backdrop-blur-md transition-shadow"
+>
+  <div class="container-px flex h-20 items-center justify-between gap-4">
+    <!-- Logo -->
+    <a href={localePath(lang)} class="flex flex-col leading-none">
+      <span class="font-serif text-2xl text-stone-ink">{studio.name}</span>
+      <span class="text-[0.65rem] uppercase tracking-[0.3em] text-rose-400">
+        {studio.tagline[lang]}
+      </span>
+    </a>
+
+    <!-- Desktop-Navigation -->
+    <nav class="hidden items-center gap-8 lg:flex">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="text-sm font-medium text-stone-soft transition hover:text-rose-500"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <!-- Sprach-Umschalter -->
+      <a
+        href={altPath}
+        class="rounded-full border border-rose-200 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-rose-500 transition hover:bg-rose-50"
+        aria-label={`Switch to ${altLang.toUpperCase()}`}
+      >
+        {altLang.toUpperCase()}
+      </a>
+
+      <a href={bookingHref} class="btn-primary hidden sm:inline-flex">{tr.cta}</a>
+
+      <!-- Mobiler Menü-Button -->
+      <button
+        id="menu-toggle"
+        class="lg:hidden rounded-full p-2 text-stone-ink hover:bg-rose-50"
+        aria-label="Menü"
+        aria-expanded="false"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="17" x2="20" y2="17" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobiles Menü -->
+  <div id="mobile-menu" class="hidden border-t border-rose-100 bg-cream lg:hidden">
+    <nav class="container-px flex flex-col gap-1 py-4">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="rounded-lg px-3 py-3 text-base font-medium text-stone-ink transition hover:bg-rose-50"
+            data-close-menu
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a href={bookingHref} class="btn-primary mt-3" data-close-menu>{tr.cta}</a>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+    const header = document.getElementById("site-header");
+    if (toggle && menu) {
+      toggle.addEventListener("click", () => {
+        const open = menu.classList.toggle("hidden") === false;
+        toggle.setAttribute("aria-expanded", String(open));
+      });
+      menu.querySelectorAll("[data-close-menu]").forEach((el) =>
+        el.addEventListener("click", () => menu.classList.add("hidden"))
+      );
+    }
+    // Schatten beim Scrollen
+    if (header) {
+      const onScroll = () =>
+        header.classList.toggle("shadow-sm", window.scrollY > 8);
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    }
+  })();
+</script>

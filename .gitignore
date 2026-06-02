@@ -1,0 +1,19 @@
+# Abhängigkeiten
+node_modules/
+
+# Build-Ausgabe
+dist/
+.astro/
+
+# Pakete / Archive
+*.zip
+
+# Umgebungs-/Geheimdateien
+.env
+.env.*
+
+# System / Editor
+.DS_Store
+.vscode/
+*.log
+npm-debug.log*

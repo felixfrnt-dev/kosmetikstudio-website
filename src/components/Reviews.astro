@@ -1,0 +1,31 @@
+---
+import { testimonials, t, type Lang } from "../i18n/content";
+const { lang } = Astro.props as { lang: Lang };
+const tr = t(lang).reviews;
+---
+
+<section id="reviews" class="scroll-mt-24 bg-blush-50/60 py-20 lg:py-28">
+  <div class="container-px">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow">{tr.eyebrow}</p>
+      <h2 class="mt-4 text-3xl text-stone-ink sm:text-4xl">{tr.title}</h2>
+    </div>
+
+    <div class="mt-14 grid gap-6 md:grid-cols-3">
+      {
+        testimonials.map((rev) => (
+          <figure
+            class="flex flex-col rounded-[1.5rem] border border-rose-100 bg-white/70 p-7 shadow-sm"
+            data-reveal
+          >
+            <div class="text-rose-400" aria-hidden="true">★★★★★</div>
+            <blockquote class="mt-4 flex-1 text-stone-ink/90 leading-relaxed">
+              „{rev[lang]}"
+            </blockquote>
+            <figcaption class="mt-6 font-medium text-rose-500">— {rev.name}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

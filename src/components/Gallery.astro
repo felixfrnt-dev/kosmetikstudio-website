@@ -1,0 +1,42 @@
+---
+import { t, type Lang } from "../i18n/content";
+const { lang } = Astro.props as { lang: Lang };
+const tr = t(lang).gallery;
+
+const images = [
+  { src: "/images/gallery-facial.jpg", de: "Gesichtsbehandlung", en: "Facial treatment", wide: true },
+  { src: "/images/gallery-lashes.jpg", de: "Wimpernverlängerung", en: "Lash extensions" },
+  { src: "/images/gallery-brows.jpg", de: "Augenbrauen-Styling", en: "Brow styling" },
+  { src: "/images/gallery-products.jpg", de: "Hochwertige Pflegeprodukte", en: "Premium care products" },
+  { src: "/images/gallery-studio.jpg", de: "Unser Studio", en: "Our studio" },
+  { src: "/images/gallery-relax.jpg", de: "Entspannung pur", en: "Pure relaxation" },
+];
+---
+
+<section id="gallery" class="scroll-mt-24 py-20 lg:py-28">
+  <div class="container-px">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow">{tr.eyebrow}</p>
+      <h2 class="mt-4 text-3xl text-stone-ink sm:text-4xl">{tr.title}</h2>
+      <p class="mt-4 text-stone-soft">{tr.text}</p>
+    </div>
+
+    <div class="mt-14 grid grid-cols-2 gap-4 md:grid-cols-3">
+      {
+        images.map((img) => (
+          <figure
+            class={`group aspect-square overflow-hidden rounded-2xl bg-rose-100 shadow-sm ${img.wide ? "md:col-span-2 md:row-span-2 md:aspect-auto" : ""}`}
+            data-reveal
+          >
+            <img
+              src={img.src}
+              alt={img[lang]}
+              loading="lazy"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

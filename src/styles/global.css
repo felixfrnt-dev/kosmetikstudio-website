@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------
+   Design-System: "Soft Rosé / Pastell"
+   Feminin, einladend, hochwertig.
+----------------------------------------------------------------- */
+@theme {
+  /* Marken-Farben */
+  --color-rose-50: #fdf4f3;
+  --color-rose-100: #fbe8e7;
+  --color-rose-200: #f7d3d1;
+  --color-rose-300: #f0b3b0;
+  --color-rose-400: #e58a86;
+  --color-rose-500: #d56b67;
+  --color-rose-600: #bf4f4c;
+  --color-rose-700: #a03f3d;
+
+  /* Akzent / warmes Nude */
+  --color-blush-50: #fcf7f4;
+  --color-blush-100: #f8ece4;
+  --color-blush-200: #f0d8c9;
+  --color-blush-300: #e6bda6;
+
+  /* Neutrale, warme Grautöne */
+  --color-stone-ink: #4a3f3d;
+  --color-stone-soft: #7a6e6b;
+  --color-cream: #fffaf7;
+
+  /* Schriften */
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  /* Radius */
+  --radius-soft: 1.25rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-stone-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-rose-400 px-7 py-3
+           text-sm font-medium tracking-wide text-white shadow-sm transition
+           hover:bg-rose-500 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-rose-300;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-rose-300 px-7 py-3
+           text-sm font-medium tracking-wide text-rose-600 transition
+           hover:bg-rose-50 focus:outline-none focus:ring-2 focus:ring-rose-200;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.25em] text-rose-400;
+  }
+  .container-px {
+    @apply mx-auto w-full max-w-6xl px-6 sm:px-8;
+  }
+  .form-field {
+    @apply mt-1.5 w-full rounded-xl border border-rose-200 bg-white px-4 py-2.5 text-sm
+           text-stone-ink outline-none transition placeholder:text-stone-soft
+           focus:border-rose-400 focus:ring-2 focus:ring-rose-200;
+  }
+}
+
+/* Blog-Artikel-Typografie */
+.prose-rose {
+  color: var(--color-stone-soft);
+  line-height: 1.8;
+}
+.prose-rose h2 {
+  color: var(--color-stone-ink);
+  font-size: 1.6rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.prose-rose h3 {
+  color: var(--color-stone-ink);
+  font-size: 1.25rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.prose-rose p {
+  margin-bottom: 1.1rem;
+}
+.prose-rose ul {
+  margin: 1.1rem 0;
+  padding-left: 1.25rem;
+  list-style: none;
+}
+.prose-rose ul li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.prose-rose ul li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  color: var(--color-rose-400);
+  font-size: 0.85rem;
+}
+.prose-rose a {
+  color: var(--color-rose-500);
+  text-decoration: underline;
+}
+.prose-rose blockquote {
+  border-left: 3px solid var(--color-rose-300);
+  background: var(--color-blush-50);
+  padding: 1rem 1.25rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--color-stone-ink);
+}
+.prose-rose strong {
+  color: var(--color-stone-ink);
+  font-weight: 600;
+}
+
+/* Sanfte Einblend-Animation */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fade-up 0.7s ease both;
+}

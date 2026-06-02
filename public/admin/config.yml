@@ -1,0 +1,67 @@
+# ───────────────────────────────────────────────────────────────
+#  Decap CMS – Konfiguration
+#  Verwaltet die Blogbeiträge (Deutsch & Englisch) direkt im GitHub-Repo.
+#  Nach dem Speichern committet das CMS in GitHub → Netlify baut automatisch neu.
+# ───────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: OWNER/REPO        # wird automatisch auf dein GitHub-Repo gesetzt
+  branch: main
+
+# Medien (Bild-Uploads aus dem CMS landen hier)
+media_folder: "public/images"
+public_folder: "/images"
+
+# Sprache der Oberfläche
+locale: "de"
+
+# Deutsche Beschriftungen für Buttons etc.
+collections:
+  - name: "blog_de"
+    label: "Blog – Deutsch"
+    label_singular: "Beitrag"
+    description: "Beiträge für die deutsche Seite (/blog)"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}  —  {{pubDate}}"
+    sortable_fields: ["pubDate", "title"]
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Kurzbeschreibung", name: "description", widget: "text", hint: "1–2 Sätze, erscheint in der Vorschau" }
+      - {
+          label: "Datum",
+          name: "pubDate",
+          widget: "datetime",
+          date_format: "DD.MM.YYYY",
+          time_format: false,
+          format: "YYYY-MM-DD",
+        }
+      - { label: "Kategorie", name: "category", widget: "string", default: "Tipps" }
+      - { label: "Titelbild", name: "cover", widget: "image", required: false, hint: "Optional – Querformat sieht am besten aus" }
+      - { label: "Inhalt", name: "body", widget: "markdown" }
+
+  - name: "blog_en"
+    label: "Blog – English"
+    label_singular: "Post"
+    description: "Posts for the English site (/en/blog)"
+    folder: "src/content/blog_en"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}  —  {{pubDate}}"
+    sortable_fields: ["pubDate", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - {
+          label: "Date",
+          name: "pubDate",
+          widget: "datetime",
+          date_format: "DD.MM.YYYY",
+          time_format: false,
+          format: "YYYY-MM-DD",
+        }
+      - { label: "Category", name: "category", widget: "string", default: "Tips" }
+      - { label: "Cover image", name: "cover", widget: "image", required: false }
+      - { label: "Content", name: "body", widget: "markdown" }

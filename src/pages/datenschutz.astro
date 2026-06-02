@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const lang = "de" as const;
+---
+
+<BaseLayout lang={lang} title="Datenschutz">
+  <section class="container-px py-16 lg:py-24">
+    <div class="mx-auto max-w-2xl prose-rose">
+      <h1 class="text-4xl text-stone-ink">Datenschutzerklärung</h1>
+      <p class="mt-6 rounded-xl bg-blush-50 p-4 text-sm">
+        <strong>Hinweis:</strong> Dies ist ein Platzhalter. Erstelle eine vollständige,
+        DSGVO-konforme Datenschutzerklärung (z.&nbsp;B. mit einem seriösen Generator oder
+        anwaltlicher Beratung) und ersetze diesen Text.
+      </p>
+
+      <h2>1. Verantwortlicher</h2>
+      <p>Verantwortlich für die Datenverarbeitung ist der im Impressum genannte Betreiber.</p>
+
+      <h2>2. Kontaktanfragen</h2>
+      <p>
+        Wenn du uns über das Terminformular kontaktierst, verarbeiten wir die angegebenen Daten
+        ausschließlich zur Bearbeitung deiner Anfrage und Terminvereinbarung.
+      </p>
+
+      <h2>3. Deine Rechte</h2>
+      <p>
+        Du hast jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der
+        Verarbeitung deiner personenbezogenen Daten.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

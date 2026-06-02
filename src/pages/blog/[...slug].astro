@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { t, localePath } from "../../i18n/content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const lang = "de" as const;
+const tr = t(lang).blog;
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<BaseLayout lang={lang} title={post.data.title} description={post.data.description}>
+  <article class="container-px py-16 lg:py-24">
+    <div class="mx-auto max-w-2xl">
+      <a href={localePath(lang, "blog")} class="text-sm font-medium text-rose-500 hover:text-rose-600">
+        ← {tr.back}
+      </a>
+
+      <div class="mt-6 flex items-center gap-3 text-xs text-stone-soft">
+        <span class="rounded-full bg-rose-100 px-3 py-1 font-medium text-rose-500">
+          {post.data.category}
+        </span>
+        <time>{fmt(post.data.pubDate)}</time>
+      </div>
+
+      <h1 class="mt-4 text-3xl text-stone-ink sm:text-4xl lg:text-5xl">{post.data.title}</h1>
+      <p class="mt-4 text-lg text-stone-soft">{post.data.description}</p>
+
+      <div class="mt-8 aspect-[16/8] overflow-hidden rounded-[1.5rem] bg-rose-100">
+        {post.data.cover && (
+          <img src={post.data.cover} alt={post.data.title} class="h-full w-full object-cover" />
+        )}
+      </div>
+
+      <div class="prose-rose mt-10">
+        <Content />
+      </div>
+
+      <div class="mt-12 rounded-[1.5rem] bg-blush-50 p-8 text-center">
+        <p class="text-stone-soft">{t(lang).booking.text}</p>
+        <a href={localePath(lang, "#booking")} class="btn-primary mt-4">{t(lang).cta}</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

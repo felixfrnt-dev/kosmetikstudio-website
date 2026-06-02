@@ -1,0 +1,89 @@
+---
+import { studio, services, t, type Lang } from "../i18n/content";
+const { lang } = Astro.props as { lang: Lang };
+const tr = t(lang).booking;
+
+// ───────────────────────────────────────────────────────────────
+// Formular-Versand: einfachste Lösung für eine statische Seite =
+// Formspree (kostenlos). 1) Account auf formspree.io anlegen,
+// 2) Formular erstellen, 3) die Form-ID unten eintragen.
+// Solange "your-id" steht, öffnet der Button das E-Mail-Programm.
+// ───────────────────────────────────────────────────────────────
+const FORMSPREE_ID = "your-id";
+const useFormspree = FORMSPREE_ID !== "your-id";
+const action = useFormspree
+  ? `https://formspree.io/f/${FORMSPREE_ID}`
+  : `mailto:${studio.email}`;
+---
+
+<section id="booking" class="scroll-mt-24 py-20 lg:py-28">
+  <div class="container-px">
+    <div class="overflow-hidden rounded-[2rem] bg-gradient-to-br from-rose-100 via-blush-50 to-cream shadow-lg shadow-rose-100">
+      <div class="grid lg:grid-cols-2">
+        <!-- Info-Seite -->
+        <div class="flex flex-col justify-center gap-6 p-9 lg:p-12">
+          <div>
+            <p class="eyebrow">{tr.eyebrow}</p>
+            <h2 class="mt-4 text-3xl text-stone-ink sm:text-4xl">{tr.title}</h2>
+            <p class="mt-4 leading-relaxed text-stone-soft">{tr.text}</p>
+          </div>
+          <div class="rounded-2xl bg-white/70 p-6">
+            <p class="text-sm text-stone-soft">{tr.or}</p>
+            <a href={`tel:${studio.phoneHref}`} class="mt-1 block font-serif text-2xl text-rose-500">
+              {studio.phone}
+            </a>
+            <a href={`mailto:${studio.email}`} class="mt-2 block text-sm text-stone-soft hover:text-rose-500">
+              {studio.email}
+            </a>
+          </div>
+        </div>
+
+        <!-- Formular -->
+        <div class="bg-white/80 p-9 backdrop-blur lg:p-12">
+          <form
+            action={action}
+            method={useFormspree ? "POST" : "get"}
+            class="grid gap-4"
+          >
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="block">
+                <span class="text-sm font-medium text-stone-ink">{tr.name}</span>
+                <input name="name" type="text" required class="form-field" autocomplete="name" />
+              </label>
+              <label class="block">
+                <span class="text-sm font-medium text-stone-ink">{tr.phone}</span>
+                <input name="phone" type="tel" class="form-field" autocomplete="tel" />
+              </label>
+            </div>
+
+            <label class="block">
+              <span class="text-sm font-medium text-stone-ink">{tr.email}</span>
+              <input name="email" type="email" required class="form-field" autocomplete="email" />
+            </label>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="block">
+                <span class="text-sm font-medium text-stone-ink">{tr.service}</span>
+                <select name="service" class="form-field">
+                  {services.map((s) => <option>{s[lang].title}</option>)}
+                </select>
+              </label>
+              <label class="block">
+                <span class="text-sm font-medium text-stone-ink">{tr.date}</span>
+                <input name="date" type="date" class="form-field" />
+              </label>
+            </div>
+
+            <label class="block">
+              <span class="text-sm font-medium text-stone-ink">{tr.message}</span>
+              <textarea name="message" rows="3" class="form-field"></textarea>
+            </label>
+
+            <button type="submit" class="btn-primary mt-2 w-full">{tr.submit}</button>
+            <p class="text-xs leading-relaxed text-stone-soft">{tr.note}</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

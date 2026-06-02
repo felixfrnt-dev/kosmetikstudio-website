@@ -1,0 +1,83 @@
+---
+import { studio, t, localePath, type Lang } from "../i18n/content";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const tr = t(lang);
+const hours = studio.openingHours[lang];
+const year = "2026";
+
+const nav = [
+  { href: localePath(lang, "#services"), label: tr.nav.services },
+  { href: localePath(lang, "#about"), label: tr.nav.about },
+  { href: localePath(lang, "blog"), label: tr.nav.blog },
+  { href: localePath(lang, "#booking"), label: tr.nav.booking },
+];
+---
+
+<footer class="mt-24 bg-stone-ink text-cream/90">
+  <div class="container-px grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4">
+    <!-- Marke -->
+    <div>
+      <p class="font-serif text-2xl text-cream">{studio.name}</p>
+      <p class="mt-1 text-xs uppercase tracking-[0.3em] text-rose-300">
+        {studio.tagline[lang]}
+      </p>
+      <p class="mt-5 max-w-xs text-sm leading-relaxed text-cream/70">
+        {studio.street}<br />
+        {studio.city}
+      </p>
+    </div>
+
+    <!-- Öffnungszeiten -->
+    <div>
+      <h4 class="text-sm font-semibold uppercase tracking-wider text-rose-300">
+        {tr.footer.hours}
+      </h4>
+      <ul class="mt-4 space-y-2 text-sm text-cream/75">
+        {
+          hours.map(([day, time]) => (
+            <li class="flex justify-between gap-4">
+              <span>{day}</span>
+              <span class="text-cream/55">{time}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Kontakt -->
+    <div>
+      <h4 class="text-sm font-semibold uppercase tracking-wider text-rose-300">
+        {tr.footer.contact}
+      </h4>
+      <ul class="mt-4 space-y-2 text-sm text-cream/75">
+        <li><a href={`tel:${studio.phoneHref}`} class="hover:text-rose-300">{studio.phone}</a></li>
+        <li><a href={`mailto:${studio.email}`} class="hover:text-rose-300">{studio.email}</a></li>
+        <li><a href={studio.instagram} class="hover:text-rose-300" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+
+    <!-- Navigation -->
+    <div>
+      <h4 class="text-sm font-semibold uppercase tracking-wider text-rose-300">
+        {tr.footer.nav}
+      </h4>
+      <ul class="mt-4 space-y-2 text-sm text-cream/75">
+        {nav.map((item) => <li><a href={item.href} class="hover:text-rose-300">{item.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-px flex flex-col items-center justify-between gap-3 py-6 text-xs text-cream/50 sm:flex-row">
+      <p>© {year} {studio.name}. {tr.footer.rights}</p>
+      <div class="flex gap-5">
+        <a href="/impressum" class="hover:text-rose-300">{tr.footer.imprint}</a>
+        <a href="/datenschutz" class="hover:text-rose-300">{tr.footer.privacy}</a>
+      </div>
+    </div>
+  </div>
+</footer>

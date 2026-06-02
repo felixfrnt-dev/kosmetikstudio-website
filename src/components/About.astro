@@ -1,0 +1,49 @@
+---
+import { t, type Lang } from "../i18n/content";
+const { lang } = Astro.props as { lang: Lang };
+const tr = t(lang).about;
+---
+
+<section id="about" class="scroll-mt-24 bg-blush-50/60 py-20 lg:py-28">
+  <div class="container-px grid items-center gap-14 lg:grid-cols-2">
+    <!-- Bild-Platzhalter -->
+    <div class="order-2 lg:order-1" data-reveal>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="aspect-[3/4] translate-y-6 overflow-hidden rounded-[1.5rem] bg-rose-100 shadow-md">
+          <img
+            src="/images/about-1.jpg"
+            alt={lang === "de" ? "Wohlfühl-Atmosphäre im Kosmetikstudio" : "Relaxing atmosphere in the beauty studio"}
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="aspect-[3/4] overflow-hidden rounded-[1.5rem] bg-rose-100 shadow-md">
+          <img
+            src="/images/about-2.jpg"
+            alt={lang === "de" ? "Kosmetikerin bei einer Gesichtsbehandlung" : "Esthetician performing a facial treatment"}
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="order-1 lg:order-2" data-reveal>
+      <p class="eyebrow">{tr.eyebrow}</p>
+      <h2 class="mt-4 text-3xl text-stone-ink sm:text-4xl">{tr.title}</h2>
+      <p class="mt-6 leading-relaxed text-stone-soft">{tr.p1}</p>
+      <p class="mt-4 leading-relaxed text-stone-soft">{tr.p2}</p>
+
+      <dl class="mt-10 grid grid-cols-3 gap-4">
+        {
+          tr.stats.map(([num, label]) => (
+            <div class="rounded-2xl bg-white/70 px-4 py-5 text-center shadow-sm">
+              <dt class="font-serif text-3xl text-rose-500" data-count>{num}</dt>
+              <dd class="mt-1 text-xs text-stone-soft">{label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>

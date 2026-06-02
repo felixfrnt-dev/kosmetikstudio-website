@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { studio } from "../i18n/content";
+const lang = "de" as const;
+---
+
+<BaseLayout lang={lang} title="Impressum">
+  <section class="container-px py-16 lg:py-24">
+    <div class="mx-auto max-w-2xl prose-rose">
+      <h1 class="text-4xl text-stone-ink">Impressum</h1>
+      <p class="mt-6 rounded-xl bg-blush-50 p-4 text-sm">
+        <strong>Hinweis:</strong> Bitte ersetze die folgenden Platzhalter durch deine echten,
+        rechtlich verbindlichen Angaben (Pflicht nach § 5 DDG / TMG).
+      </p>
+
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>
+        {studio.name}<br />
+        {studio.street}<br />
+        {studio.city}
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>
+        Telefon: {studio.phone}<br />
+        E-Mail: {studio.email}
+      </p>
+
+      <h2>Umsatzsteuer-ID</h2>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a UStG: «DE…»</p>
+
+      <h2>Verantwortlich für den Inhalt</h2>
+      <p>«Vor- und Nachname», Anschrift wie oben.</p>
+    </div>
+  </section>
+</BaseLayout>

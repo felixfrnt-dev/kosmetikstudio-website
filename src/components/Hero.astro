@@ -1,0 +1,48 @@
+---
+import { t, localePath, type Lang } from "../i18n/content";
+const { lang } = Astro.props as { lang: Lang };
+const tr = t(lang).hero;
+---
+
+<section class="relative overflow-hidden">
+  <!-- weiche Hintergrund-Verläufe (mit Parallax) -->
+  <div class="pointer-events-none absolute inset-0 -z-10">
+    <div data-parallax="0.18" class="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-rose-100 blur-3xl opacity-70"></div>
+    <div data-parallax="-0.12" class="absolute right-0 top-24 h-80 w-80 rounded-full bg-blush-100 blur-3xl opacity-80"></div>
+  </div>
+
+  <div class="container-px grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28">
+    <div>
+      <p class="eyebrow" data-hero-item>{tr.eyebrow}</p>
+      <h1 class="mt-4 text-4xl leading-tight text-stone-ink sm:text-5xl lg:text-6xl" data-hero-item>
+        {tr.title}
+      </h1>
+      <p class="mt-6 max-w-lg text-lg leading-relaxed text-stone-soft" data-hero-item>
+        {tr.text}
+      </p>
+      <div class="mt-9 flex flex-wrap gap-4" data-hero-item>
+        <a href={localePath(lang, "#booking")} class="btn-primary">{tr.primary}</a>
+        <a href={localePath(lang, "#services")} class="btn-ghost">{tr.secondary}</a>
+      </div>
+    </div>
+
+    <!-- Bild-/Platzhalter-Karte -->
+    <div data-hero-img>
+      <div class="relative mx-auto max-w-md">
+        <div class="aspect-[4/5] overflow-hidden rounded-[2rem] bg-rose-100 shadow-xl shadow-rose-200/50">
+          <img
+            src="/images/hero.jpg"
+            alt={lang === "de" ? "Strahlende, gepflegte Haut – Kosmetikstudio" : "Radiant, well-cared-for skin – beauty studio"}
+            width="1289"
+            height="1600"
+            class="h-full w-full object-cover"
+          />
+        </div>
+        <div class="absolute -bottom-6 -left-6 rounded-2xl bg-cream/95 px-6 py-4 shadow-lg backdrop-blur">
+          <p class="font-serif text-2xl text-rose-500">★ 4,9</p>
+          <p class="text-xs text-stone-soft">Google &amp; Instagram</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
