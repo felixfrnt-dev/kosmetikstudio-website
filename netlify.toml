@@ -1,0 +1,13 @@
+# Netlify-Build-Konfiguration
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# CMS-Konfiguration nie cachen – Änderungen greifen sofort
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
