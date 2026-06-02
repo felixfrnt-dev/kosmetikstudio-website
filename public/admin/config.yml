@@ -6,7 +6,7 @@
 
 backend:
   name: github
-  repo: OWNER/REPO        # wird automatisch auf dein GitHub-Repo gesetzt
+  repo: felixfrnt-dev/kosmetikstudio-website
   branch: main
 
 # Medien (Bild-Uploads aus dem CMS landen hier)
