@@ -1,0 +1,72 @@
+# ───────────────────────────────────────────────────────────────
+#  Pages CMS – Konfiguration  (https://pagescms.org)
+#  Verwaltet die Blogbeiträge (Deutsch & Englisch) direkt im Repo.
+#  Login einfach per "Sign in with GitHub" auf app.pagescms.org.
+# ───────────────────────────────────────────────────────────────
+
+media:
+  input: public/images   # wohin Bild-Uploads gespeichert werden
+  output: /images        # Pfad, der in die Beiträge geschrieben wird
+
+content:
+  - name: blog_de
+    label: "Blog – Deutsch"
+    type: collection
+    path: src/content/blog
+    view:
+      fields: [title, pubDate, category]
+    fields:
+      - name: title
+        label: Titel
+        type: string
+      - name: description
+        label: Kurzbeschreibung
+        type: text
+        options:
+          rows: 2
+      - name: pubDate
+        label: Datum
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: category
+        label: Kategorie
+        type: string
+        default: Tipps
+      - name: cover
+        label: Titelbild
+        type: image
+      - name: body
+        label: Inhalt
+        type: rich-text
+
+  - name: blog_en
+    label: "Blog – English"
+    type: collection
+    path: src/content/blog_en
+    view:
+      fields: [title, pubDate, category]
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+        options:
+          rows: 2
+      - name: pubDate
+        label: Date
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: category
+        label: Category
+        type: string
+        default: Tips
+      - name: cover
+        label: Cover image
+        type: image
+      - name: body
+        label: Content
+        type: rich-text
