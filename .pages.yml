@@ -36,6 +36,11 @@ content:
       - name: cover
         label: Titelbild
         type: image
+      - name: draft
+        label: "Entwurf (noch nicht öffentlich)"
+        type: boolean
+        default: false
+        description: "Angehakt = nur Entwurf, NICHT auf der Website sichtbar. Häkchen entfernen, um zu veröffentlichen."
       - name: body
         label: Inhalt
         type: rich-text
@@ -67,6 +72,11 @@ content:
       - name: cover
         label: Cover image
         type: image
+      - name: draft
+        label: "Draft (not public yet)"
+        type: boolean
+        default: false
+        description: "Checked = draft only, NOT visible on the site. Uncheck to publish."
       - name: body
         label: Content
         type: rich-text

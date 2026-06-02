@@ -6,7 +6,7 @@ const { lang } = Astro.props as { lang: Lang };
 const tr = t(lang).blog;
 
 const collection = lang === "de" ? "blog" : "blog_en";
-const posts = (await getCollection(collection))
+const posts = (await getCollection(collection, ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 

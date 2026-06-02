@@ -1,0 +1,41 @@
+name: Täglicher Blog-Entwurf
+
+# Läuft täglich und erstellt automatisch einen neuen Blog-ENTWURF.
+# Der Entwurf ist auf der Website unsichtbar, bis du ihn im Pages CMS freigibst.
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # täglich 06:00 UTC (~07–08 Uhr DE)
+  workflow_dispatch: {} # erlaubt manuelles Auslösen (zum Testen)
+
+permissions:
+  contents: write # nötig, um den Beitrag committen zu dürfen
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repo auschecken
+        uses: actions/checkout@v4
+
+      - name: Node einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Beitrag generieren
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-post.mjs
+
+      - name: Entwurf committen & pushen
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Keine Änderungen – nichts zu committen."
+            exit 0
+          fi
+          git config user.name "Blog-Bot"
+          git config user.email "actions@github.com"
+          git add src/content/blog
+          git commit -m "Neuer Blog-Entwurf (automatisch, $(date -u +%Y-%m-%d))"
+          git push

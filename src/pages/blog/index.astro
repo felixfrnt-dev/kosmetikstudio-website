@@ -6,7 +6,7 @@ import { t, localePath } from "../../i18n/content";
 const lang = "de" as const;
 const tr = t(lang).blog;
 
-const posts = (await getCollection("blog")).sort(
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 

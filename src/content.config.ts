@@ -7,6 +7,7 @@ const blogSchema = z.object({
   pubDate: z.coerce.date(),
   category: z.string().default("Tipps"),
   cover: z.string().optional(),
+  draft: z.boolean().default(false),
 });
 
 const blog = defineCollection({
