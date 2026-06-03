@@ -1,12 +1,12 @@
 ---
 title: "Hyaluronsäure verstehen: Was der Feuchtigkeitsspender wirklich leistet"
-description: "Hyaluronsäure gilt als Star unter den Pflegestoffen – doch was steckt dahinter? Wir erklären verständlich, wie der Wirkstoff funktioniert und wie Sie ihn richtig einsetzen."
+description: Hyaluronsäure gilt als Star unter den Pflegestoffen – doch was
+  steckt dahinter? Wir erklären verständlich, wie der Wirkstoff funktioniert und
+  wie Sie ihn richtig einsetzen.
 pubDate: 2026-06-03
-category: "Pflegetipps"
-cover: "/images/gallery-studio.jpg"
-draft: true
+category: Pflegetipps
+cover: /images/gallery-studio.jpg
 ---
-
 Kaum ein Inhaltsstoff wird so häufig beworben wie Hyaluronsäure. Sie findet sich in Seren, Cremes und Masken – und der Begriff klingt vertraut, ohne dass viele genau wissen, was dahintersteckt. Höchste Zeit, etwas Klarheit in das Thema zu bringen.
 
 ## Was Hyaluronsäure eigentlich ist
